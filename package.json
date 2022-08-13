@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/y3v4psypl/nodefetch/issues"
   },
-  "homepage": "https://github.com/y3v4psypl/nodefetch#readme"
+  "homepage": "https://github.com/y3v4psypl/nodefetch#readme",
+  "dependencies": {
+    "ink": "^3.2.0",
+    "react": "^17.0.2",
+    "systeminformation": "^5.12.5"
+  },
+  "devDependencies": {
+    "@types/ink": "^2.0.3",
+    "@types/react": "^18.0.17"
+  }
 }
