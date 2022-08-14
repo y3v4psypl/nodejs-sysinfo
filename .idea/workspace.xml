@@ -4,7 +4,9 @@
     <list default="true" id="ea2309c5-1860-4c5b-b4aa-6a2f749971f2" name="Changes" comment="WIP">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/logos.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/logos.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/logos.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +57,7 @@
       <workItem from="1660341216491" duration="1275000" />
       <workItem from="1660388888927" duration="17434000" />
       <workItem from="1660490559857" duration="480000" />
-      <workItem from="1660491563480" duration="4820000" />
+      <workItem from="1660491563480" duration="17210000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1660340915611</created>
@@ -92,7 +94,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660491766786</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="WIP">
+      <created>1660499366400</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1660499366400</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
