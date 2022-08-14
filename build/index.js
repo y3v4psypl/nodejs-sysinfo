@@ -26,6 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Ink = __importStar(require("ink"));
 const React = __importStar(require("react"));
 const si = __importStar(require("systeminformation"));
+const logos_1 = require("./logos");
 const App = () => {
     // Source https://stackoverflow.com/a/18650828
     const formatBytes = (bytes, decimals = 2) => {
@@ -57,6 +58,14 @@ const App = () => {
         RAM,
         logo
     };
+    const getLogo = () => {
+        switch (logo) {
+            case 'debian':
+            case 'gentoo':
+            case 'mint':
+                return logos_1.logos[logo];
+        }
+    };
     si.osInfo().then(data => {
         setOS(data.distro);
         setKernel(data.kernel);
@@ -72,35 +81,36 @@ const App = () => {
         .catch(e => console.log(e));
     si.graphics().then(data => setGPU(`${data.controllers[0].vendor} ${data.controllers[0].model}`))
         .catch(e => console.log(e));
-    si.mem().then(data => setRAM(`${formatBytes(data.free)}/${formatBytes(data.total)}`))
+    si.mem().then(data => setRAM(`${formatBytes(data.used)}/${formatBytes(data.total)}`))
         .catch(e => console.log(e));
-    return (React.createElement(Ink.Box, { flexDirection: 'row', paddingTop: 1 },
-        React.createElement(Ink.Box, { paddingRight: 2 },
-            React.createElement(Ink.Text, null, sysinfo.logo)),
-        React.createElement(Ink.Box, { flexDirection: 'column' },
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "OS: "),
-                React.createElement(Ink.Text, null, sysinfo.OS)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "Host: "),
-                React.createElement(Ink.Text, null, sysinfo.host)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "Kernel: "),
-                React.createElement(Ink.Text, null, sysinfo.kernel)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "Shell: "),
-                React.createElement(Ink.Text, null, sysinfo.shell)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "Resolution: "),
-                React.createElement(Ink.Text, null, sysinfo.resolution)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "CPU: "),
-                React.createElement(Ink.Text, null, sysinfo.CPU)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "GPU: "),
-                React.createElement(Ink.Text, null, sysinfo.GPU)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "RAM: "),
-                React.createElement(Ink.Text, null, sysinfo.RAM)))));
+    return (React.createElement(React.Fragment, null,
+        React.createElement(Ink.Box, { flexDirection: 'row', paddingLeft: 1, paddingTop: 1, paddingBottom: 1 },
+            React.createElement(Ink.Box, { paddingRight: 2 },
+                React.createElement(Ink.Text, null, getLogo())),
+            React.createElement(Ink.Box, { flexDirection: 'column' },
+                React.createElement(Ink.Box, { flexDirection: 'row' },
+                    React.createElement(Ink.Text, { color: 'blueBright' }, "OS: "),
+                    React.createElement(Ink.Text, null, sysinfo.OS)),
+                React.createElement(Ink.Box, { flexDirection: 'row' },
+                    React.createElement(Ink.Text, { color: 'blueBright' }, "Host: "),
+                    React.createElement(Ink.Text, null, sysinfo.host)),
+                React.createElement(Ink.Box, { flexDirection: 'row' },
+                    React.createElement(Ink.Text, { color: 'blueBright' }, "Kernel: "),
+                    React.createElement(Ink.Text, null, sysinfo.kernel)),
+                React.createElement(Ink.Box, { flexDirection: 'row' },
+                    React.createElement(Ink.Text, { color: 'blueBright' }, "Shell: "),
+                    React.createElement(Ink.Text, null, sysinfo.shell)),
+                React.createElement(Ink.Box, { flexDirection: 'row' },
+                    React.createElement(Ink.Text, { color: 'blueBright' }, "Resolution: "),
+                    React.createElement(Ink.Text, null, sysinfo.resolution)),
+                React.createElement(Ink.Box, { flexDirection: 'row' },
+                    React.createElement(Ink.Text, { color: 'blueBright' }, "CPU: "),
+                    React.createElement(Ink.Text, null, sysinfo.CPU)),
+                React.createElement(Ink.Box, { flexDirection: 'row' },
+                    React.createElement(Ink.Text, { color: 'blueBright' }, "GPU: "),
+                    React.createElement(Ink.Text, null, sysinfo.GPU)),
+                React.createElement(Ink.Box, { flexDirection: 'row' },
+                    React.createElement(Ink.Text, { color: 'blueBright' }, "RAM: "),
+                    React.createElement(Ink.Text, null, sysinfo.RAM))))));
 };
 Ink.render(React.createElement(App, null));

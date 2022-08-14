@@ -1,6 +1,7 @@
 import * as Ink from 'ink';
 import * as React from 'react';
 import * as si from 'systeminformation';
+import {logos as logoList} from './logos';
 
 const App = (): JSX.Element => {
 
@@ -42,6 +43,15 @@ const App = (): JSX.Element => {
         logo
     };
 
+    const getLogo = () => {
+        switch (logo) {
+            case 'debian':
+            case 'gentoo':
+            case 'mint':
+                return logoList[logo];
+        }
+    }
+
     si.osInfo().then(data => {
         setOS(data.distro);
         setKernel(data.kernel);
@@ -62,23 +72,51 @@ const App = (): JSX.Element => {
     si.graphics().then(data => setGPU(`${data.controllers[0].vendor} ${data.controllers[0].model}`))
         .catch(e => console.log(e));
 
-    si.mem().then(data => setRAM(`${formatBytes(data.free)}/${formatBytes(data.total)}`))
+    si.mem().then(data => setRAM(`${formatBytes(data.used)}/${formatBytes(data.total)}`))
         .catch(e => console.log(e));
 
     return (
-        <Ink.Box flexDirection='row' paddingTop={1}>
-            <Ink.Box paddingRight={2}><Ink.Text>{sysinfo.logo}</Ink.Text></Ink.Box>
-            <Ink.Box flexDirection='column'>
-                <Ink.Box flexDirection='row'><Ink.Text color='blueBright'>OS: </Ink.Text><Ink.Text>{sysinfo.OS}</Ink.Text></Ink.Box>
-                <Ink.Box flexDirection='row'><Ink.Text color='blueBright'>Host: </Ink.Text><Ink.Text>{sysinfo.host}</Ink.Text></Ink.Box>
-                <Ink.Box flexDirection='row'><Ink.Text color='blueBright'>Kernel: </Ink.Text><Ink.Text>{sysinfo.kernel}</Ink.Text></Ink.Box>
-                <Ink.Box flexDirection='row'><Ink.Text color='blueBright'>Shell: </Ink.Text><Ink.Text>{sysinfo.shell}</Ink.Text></Ink.Box>
-                <Ink.Box flexDirection='row'><Ink.Text color='blueBright'>Resolution: </Ink.Text><Ink.Text>{sysinfo.resolution}</Ink.Text></Ink.Box>
-                <Ink.Box flexDirection='row'><Ink.Text color='blueBright'>CPU: </Ink.Text><Ink.Text>{sysinfo.CPU}</Ink.Text></Ink.Box>
-                <Ink.Box flexDirection='row'><Ink.Text color='blueBright'>GPU: </Ink.Text><Ink.Text>{sysinfo.GPU}</Ink.Text></Ink.Box>
-                <Ink.Box flexDirection='row'><Ink.Text color='blueBright'>RAM: </Ink.Text><Ink.Text>{sysinfo.RAM}</Ink.Text></Ink.Box>
+        <>
+            <Ink.Box flexDirection='row' paddingLeft={1} paddingTop={1} paddingBottom={1}>
+                <Ink.Box paddingRight={2}>
+                    <Ink.Text>{getLogo()}</Ink.Text>
+                </Ink.Box>
+                <Ink.Box flexDirection='column'>
+                    <Ink.Box flexDirection='row'>
+                        <Ink.Text color='blueBright'>OS: </Ink.Text>
+                        <Ink.Text>{sysinfo.OS}</Ink.Text>
+                    </Ink.Box>
+                    <Ink.Box flexDirection='row'>
+                        <Ink.Text color='blueBright'>Host: </Ink.Text>
+                        <Ink.Text>{sysinfo.host}</Ink.Text>
+                    </Ink.Box>
+                    <Ink.Box flexDirection='row'>
+                        <Ink.Text color='blueBright'>Kernel: </Ink.Text>
+                        <Ink.Text>{sysinfo.kernel}</Ink.Text>
+                    </Ink.Box>
+                    <Ink.Box flexDirection='row'>
+                        <Ink.Text color='blueBright'>Shell: </Ink.Text>
+                        <Ink.Text>{sysinfo.shell}</Ink.Text>
+                    </Ink.Box>
+                    <Ink.Box flexDirection='row'>
+                        <Ink.Text color='blueBright'>Resolution: </Ink.Text>
+                        <Ink.Text>{sysinfo.resolution}</Ink.Text>
+                    </Ink.Box>
+                    <Ink.Box flexDirection='row'>
+                        <Ink.Text color='blueBright'>CPU: </Ink.Text>
+                        <Ink.Text>{sysinfo.CPU}</Ink.Text>
+                    </Ink.Box>
+                    <Ink.Box flexDirection='row'>
+                        <Ink.Text color='blueBright'>GPU: </Ink.Text>
+                        <Ink.Text>{sysinfo.GPU}</Ink.Text>
+                    </Ink.Box>
+                    <Ink.Box flexDirection='row'>
+                        <Ink.Text color='blueBright'>RAM: </Ink.Text>
+                        <Ink.Text>{sysinfo.RAM}</Ink.Text>
+                    </Ink.Box>
+                </Ink.Box>
             </Ink.Box>
-        </Ink.Box>
+        </>
     );
 };
 

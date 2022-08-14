@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea2309c5-1860-4c5b-b4aa-6a2f749971f2" name="Changes" comment="Chore commit">
-      <change afterPath="$PROJECT_DIR$/src/sysinfo.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sysinfo.ts" afterDir="false" />
+    <list default="true" id="ea2309c5-1860-4c5b-b4aa-6a2f749971f2" name="Changes" comment="WIP">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,6 +55,7 @@
       <workItem from="1660341216491" duration="1275000" />
       <workItem from="1660388888927" duration="17434000" />
       <workItem from="1660490559857" duration="480000" />
+      <workItem from="1660491563480" duration="4820000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1660340915611</created>
@@ -86,7 +85,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660405803579</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="WIP">
+      <created>1660491766786</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1660491766786</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -106,6 +112,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Chore commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chore commit" />
+    <MESSAGE value="WIP" />
+    <option name="LAST_COMMIT_MESSAGE" value="WIP" />
   </component>
 </project>
