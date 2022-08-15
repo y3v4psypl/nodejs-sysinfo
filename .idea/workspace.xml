@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea2309c5-1860-4c5b-b4aa-6a2f749971f2" name="Changes" comment="WIP">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/logos.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/logos.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/logos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../inkfetch/.idea/nodefetch.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../inkfetch/.idea/inkfetch.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../inkfetch/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../inkfetch/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../inkfetch/build/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../inkfetch/build/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../inkfetch/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../inkfetch/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../inkfetch/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../inkfetch/src/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +22,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../inkfetch" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -33,18 +33,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;12.22.12&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;12.20.55&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/eva/.local/share/JetBrains/Toolbox/apps/WebStorm/ch-0/222.3345.108/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "javascript.nodejs.core.library.configured.version": "12.22.12",
+    "javascript.nodejs.core.library.typings.version": "12.20.55",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "ts.external.directory.path": "/home/eva/.local/share/JetBrains/Toolbox/apps/WebStorm/ch-0/222.3345.108/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -57,7 +58,9 @@
       <workItem from="1660341216491" duration="1275000" />
       <workItem from="1660388888927" duration="17434000" />
       <workItem from="1660490559857" duration="480000" />
-      <workItem from="1660491563480" duration="17532000" />
+      <workItem from="1660491563480" duration="19091000" />
+      <workItem from="1660513930088" duration="969000" />
+      <workItem from="1660551265975" duration="3888000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1660340915611</created>
@@ -108,7 +111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660512233483</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="WIP">
+      <created>1660512247802</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1660512247802</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,6 +136,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+      <path value="$PROJECT_DIR$/../reactfetch" />
+    </ignored-roots>
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Chore commit" />
     <MESSAGE value="WIP" />

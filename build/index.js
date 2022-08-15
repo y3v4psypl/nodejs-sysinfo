@@ -37,15 +37,19 @@ const App = () => {
     const [GPU, setGPU] = React.useState(['N/A']);
     const [RAM, setRAM] = React.useState('N/A');
     const [logo, setLogo] = React.useState('N/A');
+    const [battery, setBattery] = React.useState('N/A');
+    const [uptime, setUptime] = React.useState('N/A');
     const sysinfo = {
         OS,
         kernel,
         host,
         shell,
         resolution,
+        battery,
         CPU,
         GPU,
         RAM,
+        uptime,
         logo,
     };
     // Source https://stackoverflow.com/a/18650828
@@ -68,14 +72,19 @@ const App = () => {
                 return logos_1.logos[logo];
         }
     };
+    const checkBattery = () => {
+        let result = true;
+        si.battery().then(data => result = data.hasBattery);
+        return result;
+    };
     // Source: https://stackoverflow.com/a/52387803
     const secondsToDhms = (seconds) => {
         const d = Math.floor(seconds / (3600 * 24));
         const h = Math.floor(seconds % (3600 * 24) / 3600);
         const m = Math.floor(seconds % 3600 / 60);
-        const dDisplay = d > 0 ? d + (d === 1 ? " day, " : " days, ") : "";
-        const hDisplay = h > 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
-        const mDisplay = m > 0 ? m + (m === 1 ? " minute " : " minutes ") : "";
+        const dDisplay = d > 0 ? d + (d === 1 ? ' day, ' : ' days, ') : '';
+        const hDisplay = h > 0 ? h + (h === 1 ? ' hour, ' : ' hours, ') : '';
+        const mDisplay = m > 0 ? m + (m === 1 ? ' minute ' : ' minutes ') : '';
         return dDisplay + hDisplay + mDisplay;
     };
     si.osInfo().then(data => {
@@ -83,52 +92,62 @@ const App = () => {
         setKernel(data.kernel);
         setHost(data.hostname);
         setLogo(data.logofile);
-    });
-    // .catch(e => console.log(e));
-    si.shell().then(data => setShell(data));
-    // .catch(e => console.log(e));
+    })
+        .catch(e => console.log(e));
+    si.shell().then(data => setShell(data))
+        .catch(e => console.log(e));
     si.graphics().then(data => setResolution(data.displays.map(item => `${item.resolutionX}x${item.resolutionY}`)))
-        .catch(e => setResolution([e]));
-    si.cpu().then(data => setCPU(`${data.manufacturer} ${data.brand} ${data.speed}`));
-    // .catch(e => console.log(e));
-    si.graphics().then(data => setGPU(data.controllers.map(item => `${item.vendor} ${item.model}`)));
-    // .catch(e => console.log(e));
-    si.mem().then(data => setRAM(`${formatBytes(data.used)} / ${formatBytes(data.total)}`));
-    // .catch(e => console.log(e));
-    return (React.createElement(Ink.Box, { flexDirection: 'row', paddingLeft: 1, paddingTop: 1, paddingBottom: 1 },
+        .catch(e => console.log(e));
+    si.battery().then(data => setBattery(`${data.percent}%`))
+        .catch(e => console.log(e));
+    si.cpu().then(data => setCPU(`${data.manufacturer} ${data.brand} ${data.speed}`))
+        .catch(e => console.log(e));
+    si.graphics().then(data => setGPU(data.controllers.map(item => `${item.vendor} ${item.model}`)))
+        .catch(e => console.log(e));
+    si.mem().then(data => setRAM(`${formatBytes(data.used)} / ${formatBytes(data.total)}`))
+        .catch(e => console.log(e));
+    setInterval(() => setUptime(secondsToDhms(si.time().uptime)), 1000);
+    // @ts-ignore
+    // @ts-ignore
+    return (React.createElement(Ink.Box, { flexDirection: "row", paddingLeft: 1, paddingTop: 1, paddingBottom: 1 },
         React.createElement(Ink.Box, { paddingRight: 2 },
             React.createElement(Ink.Text, null, getLogo())),
-        React.createElement(Ink.Box, { flexDirection: 'column', paddingTop: 5 },
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "OS: "),
+        React.createElement(Ink.Box, { flexDirection: "column", paddingTop: 5 },
+            React.createElement(Ink.Box, { flexDirection: "row" },
+                React.createElement(Ink.Text, { color: "blueBright" }, "OS: "),
                 React.createElement(Ink.Text, null, sysinfo.OS)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "Host: "),
+            React.createElement(Ink.Box, { flexDirection: "row" },
+                React.createElement(Ink.Text, { color: "blueBright" }, "Host: "),
                 React.createElement(Ink.Text, null, sysinfo.host)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "Kernel: "),
+            React.createElement(Ink.Box, { flexDirection: "row" },
+                React.createElement(Ink.Text, { color: "blueBright" }, "Kernel: "),
                 React.createElement(Ink.Text, null, sysinfo.kernel)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "Shell: "),
+            React.createElement(Ink.Box, { flexDirection: "row" },
+                React.createElement(Ink.Text, { color: "blueBright" }, "Shell: "),
                 React.createElement(Ink.Text, null, sysinfo.shell)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "Resolution: "),
+            React.createElement(Ink.Box, { flexDirection: "row" },
+                React.createElement(Ink.Text, { color: "blueBright" }, "Resolution: "),
                 sysinfo.resolution.length > 1
                     ? React.createElement(Ink.Text, null, `${sysinfo.resolution.join('\n')}`)
                     : React.createElement(Ink.Text, null, sysinfo.resolution)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "CPU: "),
+            React.createElement(Ink.Box, { flexDirection: "row" },
+                React.createElement(Ink.Text, { color: "blueBright" }, "CPU: "),
                 React.createElement(Ink.Text, null, sysinfo.CPU)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "GPU: "),
+            React.createElement(Ink.Box, { flexDirection: "row" },
+                React.createElement(Ink.Text, { color: "blueBright" }, "GPU: "),
                 sysinfo.GPU.length > 1
                     ? React.createElement(Ink.Text, null, `${sysinfo.GPU.join('\n')}`)
                     : React.createElement(Ink.Text, null, sysinfo.GPU)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "RAM: "),
+            React.createElement(Ink.Box, { flexDirection: "row" },
+                React.createElement(Ink.Text, { color: "blueBright" }, "RAM: "),
                 React.createElement(Ink.Text, null, sysinfo.RAM)),
-            React.createElement(Ink.Box, { flexDirection: 'row' },
-                React.createElement(Ink.Text, { color: 'blueBright' }, "Uptime: "),
-                React.createElement(Ink.Text, null, typeof (si.time().uptime) ? secondsToDhms(si.time().uptime) : 'N/A')))));
+            React.createElement(Ink.Box, { flexDirection: "row" },
+                React.createElement(Ink.Text, { color: "blueBright" }, "Uptime: "),
+                React.createElement(Ink.Text, null, sysinfo.uptime)),
+            checkBattery()
+                ? React.createElement(Ink.Box, { flexDirection: "row" },
+                    React.createElement(Ink.Text, { color: "blueBright" }, "Battery: "),
+                    React.createElement(Ink.Text, null, sysinfo.battery))
+                : React.createElement(React.Fragment, null))));
 };
 Ink.render(React.createElement(App, null));

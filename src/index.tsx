@@ -13,6 +13,8 @@ const App = (): JSX.Element => {
     const [GPU, setGPU] = React.useState<string[]>(['N/A']);
     const [RAM, setRAM] = React.useState<string>('N/A');
     const [logo, setLogo] = React.useState<string>('N/A');
+    const [battery, setBattery] = React.useState<string>('N/A');
+    const [uptime, setUptime] = React.useState<string>('N/A')
 
     const sysinfo: ISysInfo = {
         OS,
@@ -20,15 +22,17 @@ const App = (): JSX.Element => {
         host,
         shell,
         resolution,
+        battery,
         CPU,
         GPU,
         RAM,
+        uptime,
         logo,
     };
 
     // Source https://stackoverflow.com/a/18650828
 
-    const formatBytes= (bytes: number, decimals = 2) => {
+    const formatBytes = (bytes: number, decimals = 2) => {
         if (bytes === 0) return '0 Bytes';
 
         const k = 1024;
@@ -51,16 +55,22 @@ const App = (): JSX.Element => {
         }
     }
 
+    const checkBattery = (): boolean => {
+        let result = true;
+        si.battery().then(data => result = data.hasBattery)
+        return result;
+    }
+
     // Source: https://stackoverflow.com/a/52387803
 
     const secondsToDhms = (seconds: number) => {
-        const d = Math.floor(seconds / (3600*24));
-        const h = Math.floor(seconds % (3600*24) / 3600);
+        const d = Math.floor(seconds / (3600 * 24));
+        const h = Math.floor(seconds % (3600 * 24) / 3600);
         const m = Math.floor(seconds % 3600 / 60);
 
-        const dDisplay = d > 0 ? d + (d === 1 ? " day, " : " days, ") : "";
-        const hDisplay = h > 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
-        const mDisplay = m > 0 ? m + (m === 1 ? " minute " : " minutes ") : "";
+        const dDisplay = d > 0 ? d + (d === 1 ? ' day, ' : ' days, ') : '';
+        const hDisplay = h > 0 ? h + (h === 1 ? ' hour, ' : ' hours, ') : '';
+        const mDisplay = m > 0 ? m + (m === 1 ? ' minute ' : ' minutes ') : '';
         return dDisplay + hDisplay + mDisplay;
     }
 
@@ -68,79 +78,94 @@ const App = (): JSX.Element => {
         setOS(data.distro);
         setKernel(data.kernel);
         setHost(data.hostname);
-        setLogo(data.logofile)
+        setLogo(data.logofile);
     })
-        // .catch(e => console.log(e));
+        .catch(e => console.log(e));
 
     si.shell().then(data => setShell(data))
-        // .catch(e => console.log(e));
+        .catch(e => console.log(e));
 
     si.graphics().then(data => setResolution(data.displays.map(item => `${item.resolutionX}x${item.resolutionY}`)))
-        .catch(e => setResolution([e]));
+        .catch(e => console.log(e));
+
+    si.battery().then(data => setBattery(`${data.percent}%`))
+        .catch(e => console.log(e));
 
     si.cpu().then(data => setCPU(`${data.manufacturer} ${data.brand} ${data.speed}`))
-        // .catch(e => console.log(e));
+        .catch(e => console.log(e));
 
     si.graphics().then(data => setGPU(data.controllers.map(item => `${item.vendor} ${item.model}`)))
-        // .catch(e => console.log(e));
+        .catch(e => console.log(e));
 
     si.mem().then(data => setRAM(`${formatBytes(data.used)} / ${formatBytes(data.total)}`))
-        // .catch(e => console.log(e));
+        .catch(e => console.log(e));
 
+    setInterval(() => setUptime(secondsToDhms(si.time().uptime)), 1000);
+
+    // @ts-ignore
+    // @ts-ignore
     return (
-        <Ink.Box flexDirection='row' paddingLeft={1} paddingTop={1} paddingBottom={1}>
+        <Ink.Box flexDirection="row" paddingLeft={1} paddingTop={1} paddingBottom={1}>
             <Ink.Box paddingRight={2}>
                 <Ink.Text>{getLogo()}</Ink.Text>
             </Ink.Box>
-            <Ink.Box flexDirection='column' paddingTop={5}>
-                <Ink.Box flexDirection='row'>
-                    <Ink.Text color='blueBright'>OS: </Ink.Text>
+            <Ink.Box flexDirection="column" paddingTop={5}>
+                <Ink.Box flexDirection="row">
+                    <Ink.Text color="blueBright">OS: </Ink.Text>
                     <Ink.Text>{sysinfo.OS}</Ink.Text>
                 </Ink.Box>
-                <Ink.Box flexDirection='row'>
-                    <Ink.Text color='blueBright'>Host: </Ink.Text>
+                <Ink.Box flexDirection="row">
+                    <Ink.Text color="blueBright">Host: </Ink.Text>
                     <Ink.Text>{sysinfo.host}</Ink.Text>
                 </Ink.Box>
-                <Ink.Box flexDirection='row'>
-                    <Ink.Text color='blueBright'>Kernel: </Ink.Text>
+                <Ink.Box flexDirection="row">
+                    <Ink.Text color="blueBright">Kernel: </Ink.Text>
                     <Ink.Text>{sysinfo.kernel}</Ink.Text>
                 </Ink.Box>
-                <Ink.Box flexDirection='row'>
-                    <Ink.Text color='blueBright'>Shell: </Ink.Text>
+                <Ink.Box flexDirection="row">
+                    <Ink.Text color="blueBright">Shell: </Ink.Text>
                     <Ink.Text>{sysinfo.shell}</Ink.Text>
                 </Ink.Box>
-                <Ink.Box flexDirection='row'>
-                    <Ink.Text color='blueBright'>Resolution: </Ink.Text>
+                <Ink.Box flexDirection="row">
+                    <Ink.Text color="blueBright">Resolution: </Ink.Text>
                     {sysinfo.resolution.length > 1
                         ? <Ink.Text>{`${sysinfo.resolution.join('\n')}`}</Ink.Text>
                         : <Ink.Text>{sysinfo.resolution}</Ink.Text>
                     }
                 </Ink.Box>
-                <Ink.Box flexDirection='row'>
-                    <Ink.Text color='blueBright'>CPU: </Ink.Text>
+                <Ink.Box flexDirection="row">
+                    <Ink.Text color="blueBright">CPU: </Ink.Text>
                     <Ink.Text>{sysinfo.CPU}</Ink.Text>
                 </Ink.Box>
-                <Ink.Box flexDirection='row'>
-                    <Ink.Text color='blueBright'>GPU: </Ink.Text>
+                <Ink.Box flexDirection="row">
+                    <Ink.Text color="blueBright">GPU: </Ink.Text>
                     {sysinfo.GPU.length > 1
                         ? <Ink.Text>{`${sysinfo.GPU.join('\n')}`}</Ink.Text>
                         : <Ink.Text>{sysinfo.GPU}</Ink.Text>
                     }
                 </Ink.Box>
-                <Ink.Box flexDirection='row'>
-                    <Ink.Text color='blueBright'>RAM: </Ink.Text>
+                <Ink.Box flexDirection="row">
+                    <Ink.Text color="blueBright">RAM: </Ink.Text>
                     <Ink.Text>{sysinfo.RAM}</Ink.Text>
                 </Ink.Box>
-                <Ink.Box flexDirection='row'>
-                    <Ink.Text color='blueBright'>Uptime: </Ink.Text>
-                    <Ink.Text>{typeof(si.time().uptime) ? secondsToDhms(si.time().uptime) : 'N/A'}</Ink.Text>
+                <Ink.Box flexDirection="row">
+                    <Ink.Text color="blueBright">Uptime: </Ink.Text>
+                    <Ink.Text>{sysinfo.uptime}</Ink.Text>
                 </Ink.Box>
+                {
+                    checkBattery()
+                        ? <Ink.Box flexDirection="row">
+                            <Ink.Text color="blueBright">Battery: </Ink.Text>
+                            <Ink.Text>{sysinfo.battery}</Ink.Text>
+                        </Ink.Box>
+                        : <></>
+                }
             </Ink.Box>
         </Ink.Box>
     );
 };
 
-Ink.render(<App />);
+Ink.render(<App/>);
 
 
 interface ISysInfo {
@@ -149,9 +174,11 @@ interface ISysInfo {
     kernel: string,
     shell: string,
     resolution: string[],
+    battery?: string
     CPU: string,
     GPU: string[],
     RAM: string,
+    uptime: string,
     logo: string,
 }
 
